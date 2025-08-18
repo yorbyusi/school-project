@@ -31,6 +31,7 @@ public class DialogueUI : MonoBehaviour
 
     public System.Action onFinishCallback;
     public System.Action onStartedCallback;
+    public System.Action<int> onPointAdded;
 
     public void StartDialogue(System.Action callback)
     {
@@ -74,6 +75,7 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator ShowPointAndClose(int point)
     {
+        onPointAdded?.Invoke(point);
         pointText.text = $"Anda mendapatkan {(point >= 0 ? "+" : "")}{point} Poin Kesopanan!";
         yield return new WaitForSeconds(2f);
 

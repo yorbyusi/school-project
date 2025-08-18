@@ -13,16 +13,26 @@ public class LevelOneManager : MonoBehaviour
     private int indexChosen = 0;
 
     public SimplePopupText popupText;
+    public EndingPopup endingPopup;
 
     [Multiline(5)]
     public string firstMessage;
     [Multiline(5)]
     public string secondMessage;
 
+    public int maxScore = 40;
+    public int currentScore = 0;
+
+    public int needAnswered = 4;
+    public int currentAnswered = 0;
+
     public GameObject buttonChoice;
 
     public void Start()
     {
+        currentScore = 0;
+        currentAnswered = 0;
+
         for (int i = 0; i < choiceButton.Length; i++)
         {
             int index = i; // important! capture local copy
@@ -33,6 +43,7 @@ public class LevelOneManager : MonoBehaviour
         {
             dialogeUI.onStartedCallback += () => SetVisibleButtonChoice(false);
             dialogeUI.onFinishCallback += () => SetVisibleButtonChoice(true);
+            dialogeUI.onPointAdded += AddAnswered;
         }
 
         StartGame();
@@ -83,4 +94,14 @@ public class LevelOneManager : MonoBehaviour
         popupText.HideMessage();
     }
 
+    public void AddAnswered(int point)
+    {
+        currentScore += point;
+        currentAnswered++;
+
+        if(currentAnswered >= needAnswered)
+        {
+            endingPopup.ShowEnding(currentScore, maxScore);
+        }
+    }
 }
