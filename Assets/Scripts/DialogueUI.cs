@@ -29,13 +29,15 @@ public class DialogueUI : MonoBehaviour
 
     public bool hasFinished = false;
 
-    private System.Action onFinishCallback;
+    public System.Action onFinishCallback;
+    public System.Action onStartedCallback;
 
     public void StartDialogue(System.Action callback)
     {
         if (hasFinished) return;
         npcNameText.text = npcName;
-        onFinishCallback = callback;
+        onFinishCallback += callback;
+        onStartedCallback?.Invoke();
         dialoguePanel.SetActive(true);
         dialogueText.text = NPCDialog;
 
