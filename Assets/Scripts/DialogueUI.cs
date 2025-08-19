@@ -33,6 +33,14 @@ public class DialogueUI : MonoBehaviour
     public System.Action onStartedCallback;
     public System.Action<int> onPointAdded;
 
+    private void Start()
+    {
+        foreach (var btn in optionButtons)
+        {
+            btn.gameObject.SetActive(false);
+        }
+    }
+
     public void StartDialogue(System.Action callback)
     {
         if (hasFinished) return;
@@ -42,7 +50,7 @@ public class DialogueUI : MonoBehaviour
         dialoguePanel.SetActive(true);
         dialogueText.text = NPCDialog;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < options.Length; i++)
         {
             optionTexts[i].text = options[i];
             int index = i;

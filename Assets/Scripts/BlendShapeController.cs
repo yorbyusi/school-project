@@ -29,6 +29,9 @@ public class BlendShapeController : MonoBehaviour
 
     public void ClearAll()
     {
+        if (_mesh.blendShapeCount <= 0)
+            return;
+
         for (int i = 0; i < _mesh.blendShapeCount; i++)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(i, 0);

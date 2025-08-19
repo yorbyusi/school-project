@@ -101,7 +101,7 @@ public class LevelOneManager : MonoBehaviour
 
         if(currentAnswered >= needAnswered)
         {
-            endingPopup.ShowEnding(currentScore, maxScore);
+            endingPopup.Show(currentScore, maxScore);
         }
     }
 }

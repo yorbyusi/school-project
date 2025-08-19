@@ -46,13 +46,21 @@ public class EndingPopup : MonoBehaviour
         restartBtn.onClick.AddListener(() => OpenScene("SekolahLevel1"));
         nextLevelBtn.onClick.AddListener(() => OpenScene("SekolahLevel2"));
     }
-    
+
+    private void Update()
+    {
+        if (Application.isEditor && Input.GetKeyDown(KeyCode.P))
+        {
+            ShowEnding("Debug Ending: Pressed P");
+        }
+    }
+
     private void OpenScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    public void ShowEnding(int score, int maxScore)
+    public void Show(int score, int maxScore)
     {
         ShowEnding($"Skor akhir kamu: {score}/{maxScore}");
     }
