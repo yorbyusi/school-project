@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelOneManager : MonoBehaviour
 {
+    public bool isSequential = false;
     public Button[] choiceButton;
     public GameObject[] teleportPos;
     public Transform playerTransform;
@@ -27,13 +28,30 @@ public class LevelOneManager : MonoBehaviour
     public int currentAnswered = 0;
 
     public GameObject buttonChoice;
+    public GameObject buttonE;
 
     public void Start()
     {
         currentScore = 0;
         currentAnswered = 0;
 
-        for (int i = 0; i < choiceButton.Length; i++)
+        if (isSequential)
+        {
+            for (int i = 0; i < choiceButton.Length; i++)
+            {
+                choiceButton[i].interactable = false;
+            }
+            choiceButton[0].interactable = true;
+        }
+        else
+        {
+            for (int i = 0; i < choiceButton.Length; i++)
+            {
+                choiceButton[i].interactable = true;
+            }
+        }
+
+            for (int i = 0; i < choiceButton.Length; i++)
         {
             int index = i; // important! capture local copy
             choiceButton[i].onClick.AddListener(() => OnButtonClicked(index));
@@ -70,7 +88,26 @@ public class LevelOneManager : MonoBehaviour
             playerTransform.rotation = teleportPos[indexChosen].transform.rotation;
         }
 
+        StartCoroutine(DelaySpawnPressE());
         choiceButton[indexChosen].interactable = false;
+
+        if(isSequential )
+        {
+            // make next index button interactable
+            if (indexChosen + 1 < choiceButton.Length)
+            {
+                if(choiceButton[indexChosen + 1] != null)
+                {
+                    choiceButton[indexChosen + 1].interactable = true;
+                }
+            }
+        }
+    }
+
+    private IEnumerator DelaySpawnPressE()
+    {
+        yield return new WaitForSeconds(1f);
+        buttonE.SetActive(true);
     }
 
     private void StartGame()

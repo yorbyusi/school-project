@@ -44,6 +44,12 @@ public class DialogueUI : MonoBehaviour
     public void StartDialogue(System.Action callback)
     {
         if (hasFinished) return;
+
+        if(string.IsNullOrEmpty(npcName))
+        {
+            npcNameText.transform.parent.gameObject.SetActive(false);
+        }
+
         npcNameText.text = npcName;
         onFinishCallback += callback;
         onStartedCallback?.Invoke();
