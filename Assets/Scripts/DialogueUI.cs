@@ -74,6 +74,7 @@ public class DialogueUI : MonoBehaviour
         int point = points[index];
         string response = answers[index];
         string expression = expressions[index];
+        AudioManager.Instance.PlaySFX(expression);
 
         dialogueText.text = response;
 

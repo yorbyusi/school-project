@@ -8,13 +8,13 @@ public class MiniGameManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Transform buttonParent;
-    [SerializeField] private Button buttonPrefab;
-    [SerializeField] private GameObject miniGameOverlay;
-    [SerializeField] private GameObject sentenceOverlay;
+    //[SerializeField] private Button buttonPrefab;
+    public Button[] buttonChoices;
 
     [Space(10)]
-    [SerializeField] private QuizMiniGame quizMiniGame; // reference to quiz component
+    [SerializeField] private QuizMiniGame quizMiniGame;
     [SerializeField] private SentenceMiniGame sentenceMiniGame;
+    [SerializeField] private PuzzleManager puzzleManager;
 
 
     [Header("Settings")]
@@ -26,21 +26,25 @@ public class MiniGameManager : MonoBehaviour
     private int activeMiniGameIndex = -1;
     private int currentPoints = 0;
 
+    public int choicesPicked = 0;
+    public EndingPopup endingPopup;
+
     private void Start()
     {
         GenerateButtons();
-        miniGameOverlay.SetActive(false);
+        quizMiniGame.gameObject.SetActive(false);
 
         quizMiniGame.onQuizFinished.AddListener(OnMiniGameFinished);
-        sentenceMiniGame.onMiniGameFinished.AddListener(OnSentenceGameFinished);
+        sentenceMiniGame.onMiniGameFinished.AddListener(OnMiniGameFinished);
+        puzzleManager.onPuzzleFinished.AddListener(OnMiniGameFinished);
 
     }
 
     private void GenerateButtons()
     {
-        for (int i = 0; i < totalChoices; i++)
+        for (int i = 0; i < buttonChoices.Length; i++)
         {
-            var button = Instantiate(buttonPrefab, buttonParent);
+            var button = buttonChoices[i];
             int index = i; // capture for delegate
             button.onClick.AddListener(() => OnChoiceSelected(index));
             button.GetComponentInChildren<TextMeshProUGUI>().text = buttonText[i];
@@ -54,16 +58,22 @@ public class MiniGameManager : MonoBehaviour
             return;
 
         activeMiniGameIndex = index;
+        buttonParent.gameObject.SetActive(false);
 
         if (index == 0)
         {
-            miniGameOverlay.SetActive(true);
+            quizMiniGame.gameObject.SetActive(true);
             quizMiniGame.StartQuiz();
         }
         else if (index == 1)
         {
-            sentenceOverlay.SetActive(true);
+            sentenceMiniGame.gameObject.SetActive(true);
             sentenceMiniGame.StartGame();
+        }
+        else if (index == 2)
+        {
+            puzzleManager.gameObject.SetActive(true);
+            puzzleManager.InitPuzzle();
         }
 
     }
@@ -71,27 +81,31 @@ public class MiniGameManager : MonoBehaviour
     private void OnMiniGameFinished(bool success, int reward)
     {
         if (activeMiniGameIndex == -1) return;
+        buttonParent.gameObject.SetActive(true);
 
         if (success)
         {
             currentPoints += reward;
             Debug.Log($"Mini game success! Total Points = {currentPoints}");
+            choiceButtons[activeMiniGameIndex].interactable = false;
+            choicesPicked++;
         }
         else
         {
-            Debug.Log("Mini game failed.");
+            Debug.Log("Mini game failed. Button stays active for retry.");
         }
 
-        choiceButtons[activeMiniGameIndex].interactable = false;
-        miniGameOverlay.SetActive(false);
         activeMiniGameIndex = -1;
-    }
 
-    private void OnSentenceGameFinished(bool success)
-    {
-        Debug.Log(success ? "Sentence game success!" : "Sentence game failed.");
-        OnMiniGameFinished(success, success ? 10 : 0); // reuse manager’s flow
-        sentenceOverlay.SetActive(false);
+        // disable all mini games
+        quizMiniGame.gameObject.SetActive(false);
+        sentenceMiniGame.gameObject.SetActive(false);
+        puzzleManager.gameObject.SetActive(false);
+
+        if (choicesPicked >= totalChoices)
+        {
+            endingPopup?.ShowEnding($"Kamu telah menyelesaikan level ini.\nTotal Points: {currentPoints}", currentPoints, 50);
+        }
     }
 
 }

@@ -31,7 +31,9 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         // Cache initial volumes
         bgmVolume = bgmSource.volume;
@@ -61,16 +63,35 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(FadeSwitch(bgmSource, clip, bgmVolume));
     }
 
+    public void StopBGM()
+    {
+        StartCoroutine(FadeSwitch(bgmSource, null, 0f));
+    }
+
     public void PlayAmbience(string clipName)
     {
         if (!clipCache.TryGetValue(clipName, out var clip)) return;
         StartCoroutine(FadeSwitch(ambienceSource, clip, ambienceVolume));
     }
 
+    public void StopAmbience()
+    {
+        StartCoroutine(FadeSwitch(ambienceSource, null, 0f));
+    }
+
     public void PlaySFX(string clipName)
     {
         if (!clipCache.TryGetValue(clipName, out var clip)) return;
         sfxSource.PlayOneShot(clip, sfxVolume);
+    }
+
+    // play sfx with pitch variation
+    public void PlaySFX(string clipName, float pitchMin, float pitchMax)
+    {
+        if (!clipCache.TryGetValue(clipName, out var clip)) return;
+        sfxSource.pitch = Random.Range(pitchMin, pitchMax);
+        sfxSource.PlayOneShot(clip, sfxVolume);
+        sfxSource.pitch = 1f; // reset pitch
     }
 
     private System.Collections.IEnumerator FadeSwitch(AudioSource source, AudioClip newClip, float targetVolume)

@@ -91,7 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 4888188275843362996}
   sentenceText: {fileID: 4889824899904190418}
-  zonePadding: 25
+  moveThresholdFraction: 0.35
+  neighborGateFraction: 0.15
 --- !u!1 &2706731961554149558
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,8 +160,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00e746f367189b5428b4d4d8a36c27a2, type: 2}
+  m_sharedMaterial: {fileID: 4005820261525381449, guid: 00e746f367189b5428b4d4d8a36c27a2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

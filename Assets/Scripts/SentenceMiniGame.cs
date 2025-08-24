@@ -30,7 +30,7 @@ public class SentenceMiniGame : MonoBehaviour
     public string winMessage = "You Win!";
     public string loseMessage = "Time’s Up!";
 
-    public UnityEvent<bool> onMiniGameFinished = new(); // success on correct, fail on timeout
+    public UnityEvent<bool, int> onMiniGameFinished = new(); // success, reward
 
     private Coroutine timerRoutine;
     private VerticalLayoutGroup layoutGroup;
@@ -53,7 +53,6 @@ public class SentenceMiniGame : MonoBehaviour
         if (sentences == null || sentences.Count == 0)
         {
             Debug.LogWarning("[SentenceMiniGame] No sentences set.");
-            onMiniGameFinished.Invoke(false);
             return;
         }
 
@@ -133,7 +132,7 @@ public class SentenceMiniGame : MonoBehaviour
         while (t > 0f)
         {
             t -= Time.deltaTime;
-            if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(t)}";
+            if (timerText) timerText.text = $"Waktu sisa: {Mathf.CeilToInt(t)}";
             yield return null;
         }
         EndGame(false); // timeout
@@ -147,17 +146,18 @@ public class SentenceMiniGame : MonoBehaviour
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
 
-        // Show popup
         popupPanel.SetActive(true);
         popupText.text = success ? winMessage : loseMessage;
 
-        // Add listener for click anywhere
+        int reward = success ? 50 : 0;
+
         StartCoroutine(WaitForTap(() =>
         {
             popupPanel.SetActive(false);
-            onMiniGameFinished?.Invoke(success);
+            onMiniGameFinished?.Invoke(success, reward);
         }));
     }
+
 
     private IEnumerator WaitForTap(System.Action onClose)
     {

@@ -28,6 +28,13 @@ public class QuizMiniGame : MonoBehaviour
     [Header("Quiz Database")]
     public QuizData[] quizzes;
 
+    [Header("Popup Settings")]
+    public GameObject popupPanel;
+    public TextMeshProUGUI popupText;
+    public string winMessage = "You Win!";
+    public string loseMessage = "Time’s Up!";
+
+
     // success always true now (game ends after last Q), int = total points earned
     public UnityEvent<bool, int> onQuizFinished = new();
 
@@ -103,7 +110,7 @@ public class QuizMiniGame : MonoBehaviour
         while (timer > 0f)
         {
             timer -= Time.deltaTime;
-            timerText.text = $"Time: {Mathf.CeilToInt(timer)}";
+            timerText.text = $"Waktu sisa: {Mathf.CeilToInt(timer)}";
             yield return null;
         }
 
@@ -124,7 +131,24 @@ public class QuizMiniGame : MonoBehaviour
         if (quizRoutine != null)
             StopCoroutine(quizRoutine);
 
-        // success always true, since we always finish all Qs
-        onQuizFinished.Invoke(true, currentPoints);
+        bool success = currentPoints >= quizzes.Length * pointsPerCorrect;
+        int reward = success ? 50 : 0;
+
+        popupPanel.SetActive(true);
+        popupText.text = success ? winMessage : loseMessage;
+
+        StartCoroutine(WaitForTap(() =>
+        {
+            popupPanel.SetActive(false);
+            onQuizFinished.Invoke(success, reward);
+        }));
     }
+
+    private IEnumerator WaitForTap(System.Action onClose)
+    {
+        while (!Input.GetMouseButtonDown(0) && Input.touchCount == 0)
+            yield return null;
+        onClose?.Invoke();
+    }
+
 }

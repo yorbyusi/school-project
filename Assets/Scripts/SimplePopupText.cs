@@ -47,17 +47,28 @@ public class SimplePopupText : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator Typewriter(string message)
     {
+        yield return new WaitForSeconds(fadeDuration);
+
         messageText.text = "";
         isComplete = false;
 
         for (int i = 0; i < message.Length; i++)
         {
             messageText.text += message[i];
+
+            var playSfxThreshold = 2;
+            if (i % playSfxThreshold == 0 && !char.IsWhiteSpace(message[i]))
+            {
+                AudioManager.Instance?.PlaySFX("beep-1", 0.9f, 1.2f);
+            }
+
             yield return new WaitForSeconds(typewriterSpeed);
         }
 
         isComplete = true;
     }
+
+
 
     public void HideMessage()
     {

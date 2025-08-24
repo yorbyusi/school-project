@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class LevelOneManager : MonoBehaviour
 {
@@ -29,9 +30,13 @@ public class LevelOneManager : MonoBehaviour
 
     public GameObject buttonChoice;
     public GameObject buttonE;
+    public CanvasGroup blackOverlay;
 
-    public void Start()
+    public string bgmName = "bgm-playful";
+
+    public IEnumerator Start()
     {
+
         currentScore = 0;
         currentAnswered = 0;
 
@@ -65,6 +70,9 @@ public class LevelOneManager : MonoBehaviour
         }
 
         StartGame();
+
+        yield return new WaitForSeconds(0.8f);
+        AudioManager.Instance.PlayBGM(bgmName);
     }
 
     private void SetVisibleButtonChoice(bool isVisible)
@@ -79,14 +87,15 @@ public class LevelOneManager : MonoBehaviour
 
         if (indexChosen >= 0 && indexChosen < teleportPos.Length)
         {
-            var playerRb = playerTransform.GetComponent<Rigidbody>();
-            //playerRb.velocity = Vector3.zero; // Reset velocity before teleporting
-            //playerRb.MovePosition(teleportPos[indexChosen].transform.position); // Move player to the teleport position
-            //playerRb.MoveRotation(teleportPos[indexChosen].transform.rotation); // Rotate player to the teleport position
-
-            playerTransform.position = teleportPos[indexChosen].transform.position;
-            playerTransform.rotation = teleportPos[indexChosen].transform.rotation;
         }
+
+        blackOverlay.DOFade(1f, 0.3f).SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                var playerRb = playerTransform.GetComponent<Rigidbody>();
+                playerTransform.position = teleportPos[indexChosen].transform.position;
+                playerTransform.rotation = teleportPos[indexChosen].transform.rotation;
+            });
 
         StartCoroutine(DelaySpawnPressE());
         choiceButton[indexChosen].interactable = false;
@@ -106,8 +115,9 @@ public class LevelOneManager : MonoBehaviour
 
     private IEnumerator DelaySpawnPressE()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.8f);
         buttonE.SetActive(true);
+        blackOverlay.DOFade(0f, 0.7f).SetEase(Ease.OutCirc);
     }
 
     private void StartGame()
