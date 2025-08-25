@@ -40,6 +40,7 @@ public class GameFlowManager : MonoBehaviour
 
     [Header("Skor & Emosi")]
     public int totalScore = 0;
+    public int maxScore;
     public TMP_Text scoreText;
 
     [Header("Emosi System")]
@@ -63,7 +64,7 @@ public class GameFlowManager : MonoBehaviour
     [Header("Kunci Jawaban")]
     public int[] correctAnswers = new int[4]; // index 0–3 = soal 1–4
 
-
+    public EndingPopup endingPopup;
 
     void Awake()
     {
@@ -218,33 +219,34 @@ public class GameFlowManager : MonoBehaviour
 
 
     void CheckEssayInput()
-{
-    foreach (var input in essayInputs)
     {
-        if (input.gameObject.activeSelf && input.text.Length >= essayMinChars)
+        foreach (var input in essayInputs)
         {
-            nextFromEssayButton.interactable = true;
-            return;
+            if (input.gameObject.activeSelf && input.text.Length >= essayMinChars)
+            {
+                nextFromEssayButton.interactable = true;
+                return;
+            }
         }
+        nextFromEssayButton.interactable = false;
     }
-    nextFromEssayButton.interactable = false;
-}
 
 
     void AddPoints(int questionIndex, int answerIndex)
-{
-    if (IsCorrectAnswer(questionIndex, answerIndex))
     {
-        totalScore += 10; // Hanya jawaban benar yang mendapat 10 poin
-        Debug.Log("Point +10 ditambahkan");
-    }
-    else
-    {
-        Debug.Log("Jawaban salah, tidak ada poin.");
-    }
+        maxScore += 10;
+        if (IsCorrectAnswer(questionIndex, answerIndex))
+        {
+            totalScore += 10; // Hanya jawaban benar yang mendapat 10 poin
+            Debug.Log("Point +10 ditambahkan");
+        }
+        else
+        {
+            Debug.Log("Jawaban salah, tidak ada poin.");
+        }
 
-    UpdateScoreUI();
-}
+        UpdateScoreUI();
+    }
 
 
     void ShowEmotionChoice()
@@ -253,6 +255,7 @@ public class GameFlowManager : MonoBehaviour
             questionPanels[currentQuestion].SetActive(false);
 
         emotionChoicePanel.SetActive(true);
+        nextFromEssayButton.gameObject.SetActive(false);
     }
 
     void ContinueToNextQuestion()
@@ -283,21 +286,21 @@ public class GameFlowManager : MonoBehaviour
 }
 
     void EndExam()
-{
-    timerRunning = false; // Stop timer
+    {
+        timerRunning = false; // Stop timer
 
-    HideAllQuestionPanels();
-    emotionChoicePanel.SetActive(false);
+        HideAllQuestionPanels();
+        emotionChoicePanel.SetActive(false);
 
-    // 💡 Hitung skor dari jawaban essay
-    CalculateEssayScore();
+        // 💡 Hitung skor dari jawaban essay
+        CalculateEssayScore();
 
-    if (endPanel != null) endPanel.SetActive(true);
-    if (finalScoreText != null)
-{
-    float totalTime = 40f + addedTime; // jika default awalnya 240 detik
-    finalScoreText.text = $"Skor Akhir: {totalScore}\nWaktu Total: {totalTime:F0} detik (+{addedTime:F0}s)";
-}
+        if (endPanel != null) endPanel.SetActive(true);
+        if (finalScoreText != null)
+    {
+        float totalTime = 40f + addedTime; // jika default awalnya 240 detik
+        finalScoreText.text = $"Skor Akhir: {totalScore}\nWaktu Total: {totalTime:F0} detik (+{addedTime:F0}s)";
+    }
 
 }
 
@@ -405,9 +408,11 @@ public class GameFlowManager : MonoBehaviour
         int essayPoints = Mathf.FloorToInt(rawPoints);
 
         totalScore += essayPoints;
+        maxScore += essayPoints;
         Debug.Log($"📝 Total huruf: {totalChars} | Essay Point: {essayPoints}");
 
         UpdateScoreUI();
+        endingPopup.Show(totalScore, maxScore);
     }
 
 
