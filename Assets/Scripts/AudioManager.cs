@@ -57,26 +57,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private Coroutine bgmCoroutine;
+    private Coroutine ambienceCoroutine;
+
     public void PlayBGM(string clipName)
     {
+        Debug.Log($"[AudioManager] PlayBGM: {clipName}");
         if (!clipCache.TryGetValue(clipName, out var clip)) return;
+
+        //if (bgmCoroutine != null)
+        //    StopCoroutine(bgmCoroutine);
+
         StartCoroutine(FadeSwitch(bgmSource, clip, bgmVolume));
     }
 
     public void StopBGM()
     {
-        StartCoroutine(FadeSwitch(bgmSource, null, 0f));
+        bgmCoroutine = StartCoroutine(FadeSwitch(bgmSource, null, 0f));
     }
 
     public void PlayAmbience(string clipName)
     {
         if (!clipCache.TryGetValue(clipName, out var clip)) return;
-        StartCoroutine(FadeSwitch(ambienceSource, clip, ambienceVolume));
+        if (ambienceCoroutine != null)
+            StopCoroutine(ambienceCoroutine);
+        ambienceCoroutine = StartCoroutine(FadeSwitch(ambienceSource, clip, ambienceVolume));
     }
 
     public void StopAmbience()
     {
-        StartCoroutine(FadeSwitch(ambienceSource, null, 0f));
+        ambienceCoroutine = StartCoroutine(FadeSwitch(ambienceSource, null, 0f));
     }
 
     public void PlaySFX(string clipName)

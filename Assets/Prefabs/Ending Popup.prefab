@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 6338125895782797773}
   - component: {fileID: 6709035196008134435}
   - component: {fileID: 34077640273600597}
+  - component: {fileID: 3814974134693586719}
   m_Layer: 5
   m_Name: Shapes2D Button (1)
   m_TagString: Untagged
@@ -406,6 +407,20 @@ MonoBehaviour:
     _usePolygonMap: 0
   wasConverted: 0
   preConvertedScale: {x: 0, y: 0, z: 0}
+--- !u!114 &3814974134693586719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2403891755476358332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350fd4d05cdb9cf45acb6ff056737bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  scaleDuration: 0.15
 --- !u!1 &2793357071904550274
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +523,7 @@ GameObject:
   - component: {fileID: 4866850463143936170}
   - component: {fileID: 3315392445507656736}
   - component: {fileID: 1898210155876182372}
+  - component: {fileID: 6732881678146751213}
   m_Layer: 5
   m_Name: Shapes2D Button
   m_TagString: Untagged
@@ -675,6 +691,20 @@ MonoBehaviour:
     _usePolygonMap: 0
   wasConverted: 0
   preConvertedScale: {x: 0, y: 0, z: 0}
+--- !u!114 &6732881678146751213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570801772418708659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350fd4d05cdb9cf45acb6ff056737bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  scaleDuration: 0.15
 --- !u!1 &4933673319465808177
 GameObject:
   m_ObjectHideFlags: 0

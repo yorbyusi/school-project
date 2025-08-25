@@ -19,6 +19,10 @@ public class GameFlowManager : MonoBehaviour
 
     private bool timeIsOut = false; // true jika waktu habis alami
 
+    [Header("Materi awal")]
+    public Button startAfterRead;
+    public TMP_Text readText;
+    public float typewriterSpeed = 0.05f;
 
     [Header("Panels")]
     public GameObject startPanel;
@@ -62,93 +66,116 @@ public class GameFlowManager : MonoBehaviour
 
 
     void Awake()
-{
-    // Inisialisasi array tombol pilihan ganda
-    multipleChoiceButtons = new Button[4][];
-    correctAnswers = new int[4]; // index A=0, B=1, C=2, D=3
-
-    // Set kunci jawaban (contoh)
-    correctAnswers[0] = 1; // Soal 1 → A
-    correctAnswers[1] = 0; // Soal 2 → C
-    correctAnswers[2] = 0; // Soal 3 → B
-    correctAnswers[3] = 2; // Soal 4 → D
-
-    for (int i = 0; i < 4; i++)
     {
-        Transform panel = questionPanels[i].transform;
-        multipleChoiceButtons[i] = new Button[4];
+        // Inisialisasi array tombol pilihan ganda
+        multipleChoiceButtons = new Button[4][];
+        correctAnswers = new int[4]; // index A=0, B=1, C=2, D=3
 
-        for (int j = 0; j < 4; j++)
+        // Set kunci jawaban (contoh)
+        correctAnswers[0] = 1; // Soal 1 → A
+        correctAnswers[1] = 0; // Soal 2 → C
+        correctAnswers[2] = 0; // Soal 3 → B
+        correctAnswers[3] = 2; // Soal 4 → D
+
+        for (int i = 0; i < 4; i++)
         {
-            multipleChoiceButtons[i][j] = panel.Find($"Button{j}").GetComponent<Button>();
+            Transform panel = questionPanels[i].transform;
+            multipleChoiceButtons[i] = new Button[4];
 
-            int capturedI = i;
-            int capturedJ = j;
-
-            multipleChoiceButtons[i][j].onClick.AddListener(() =>
+            for (int j = 0; j < 4; j++)
             {
-                bool isCorrect = IsCorrectAnswer(capturedI, capturedJ);
+                multipleChoiceButtons[i][j] = panel.Find($"Button{j}").GetComponent<Button>();
 
-                if (isCorrect)
+                int capturedI = i;
+                int capturedJ = j;
+
+                multipleChoiceButtons[i][j].onClick.AddListener(() =>
                 {
-                    Debug.Log($"✅ Jawaban BENAR untuk Soal {capturedI + 1}");
-                    if (resultAnimator != null)
-                        resultAnimator.SetTrigger("Win");
+                    bool isCorrect = IsCorrectAnswer(capturedI, capturedJ);
 
-                    PlayVFX(vfxCorrect);
-                }
-                else
-                {
-                    Debug.Log($"❌ Jawaban SALAH untuk Soal {capturedI + 1}");
-                    if (resultAnimator != null)
-                        resultAnimator.SetTrigger("Lose");
+                    if (isCorrect)
+                    {
+                        Debug.Log($"✅ Jawaban BENAR untuk Soal {capturedI + 1}");
+                        if (resultAnimator != null)
+                            resultAnimator.SetTrigger("Win");
 
-                    PlayVFX(vfxWrong);
-                }
+                        PlayVFX(vfxCorrect);
+                    }
+                    else
+                    {
+                        Debug.Log($"❌ Jawaban SALAH untuk Soal {capturedI + 1}");
+                        if (resultAnimator != null)
+                            resultAnimator.SetTrigger("Lose");
+
+                        PlayVFX(vfxWrong);
+                    }
 
 
 
-                AddPoints(capturedI, capturedJ);
-                ShowEmotionChoice();
-            });
+                    AddPoints(capturedI, capturedJ);
+                    ShowEmotionChoice();
+                });
+            }
         }
+
+        // Tombol emosi
+        btnBernafas.onClick.AddListener(HandleBernafas);
+        btnIstirahat.onClick.AddListener(HandleIstirahat);
+        btnLanjut.onClick.AddListener(HandleLanjut);
+
+
     }
 
-    // Tombol emosi
-    btnBernafas.onClick.AddListener(HandleBernafas);
-    btnIstirahat.onClick.AddListener(HandleIstirahat);
-    btnLanjut.onClick.AddListener(HandleLanjut);
-}
+    private IEnumerator Typewriter(string message)
+    {
+        startAfterRead.interactable = false;
+        readText.text = "";
 
+        for (int i = 0; i < message.Length; i++)
+        {
+            readText.text += message[i];
 
+            var playSfxThreshold = 2;
+            if (i % playSfxThreshold == 0 && !char.IsWhiteSpace(message[i]))
+            {
+                AudioManager.Instance?.PlaySFX("beep-1", 0.9f, 1.2f);
+            }
+
+            yield return new WaitForSeconds(typewriterSpeed);
+        }
+
+        startAfterRead.interactable = true;
+    }
 
     void Start()
-{
-    nextFromEssayButton.gameObject.SetActive(false); // sembunyikan tombol saat awal
-    // startPanel.SetActive(true);
-    HideAllQuestionPanels();
-    emotionChoicePanel.SetActive(false);
-
-    startButton.onClick.AddListener(() =>
     {
-        startPanel.SetActive(false);
-        ShowCurrentQuestion();
-        timerRunning = true;
-    });
+        nextFromEssayButton.gameObject.SetActive(false); // sembunyikan tombol saat awal
+        // startPanel.SetActive(true);
+        HideAllQuestionPanels();
+        emotionChoicePanel.SetActive(false);
 
-    // Tambahkan listener ke semua essay input
-    foreach (var input in essayInputs)
-    {
-        input.onValueChanged.AddListener(delegate { CheckEssayInput(); });
+        startButton.onClick.AddListener(() =>
+        {
+            startPanel.SetActive(false);
+            ShowCurrentQuestion();
+            timerRunning = true;
+        });
+
+        // Tambahkan listener ke semua essay input
+        foreach (var input in essayInputs)
+        {
+            input.onValueChanged.AddListener(delegate { CheckEssayInput(); });
+        }
+
+        nextFromEssayButton.onClick.AddListener(() => ShowEmotionChoice());
+
+        nextFromEssayButton.interactable = false; // awalnya tidak aktif
+        currentEmotion = 1f;
+        emotionBar.fillAmount = currentEmotion;
+        UpdateScoreUI();
+
+        StartCoroutine(Typewriter(readText.text));
     }
-
-    nextFromEssayButton.onClick.AddListener(() => ShowEmotionChoice());
-
-    nextFromEssayButton.interactable = false; // awalnya tidak aktif
-    currentEmotion = 1f;
-    emotionBar.fillAmount = currentEmotion;
-    UpdateScoreUI();
-}
 
 
     void Update()
@@ -181,13 +208,13 @@ public class GameFlowManager : MonoBehaviour
     }
 }
 
-IEnumerator PlayAndDeactivate(GameObject vfx, float duration)
-{
-    vfx.SetActive(false); // reset
-    vfx.SetActive(true);  // mainkan
-    yield return new WaitForSeconds(duration);
-    vfx.SetActive(false); // matikan lagi setelah selesai
-}
+    IEnumerator PlayAndDeactivate(GameObject vfx, float duration)
+    {
+        vfx.SetActive(false); // reset
+        vfx.SetActive(true);  // mainkan
+        yield return new WaitForSeconds(duration);
+        vfx.SetActive(false); // matikan lagi setelah selesai
+    }
 
 
     void CheckEssayInput()
@@ -325,7 +352,7 @@ IEnumerator PlayAndDeactivate(GameObject vfx, float duration)
     }
 
     // === HANDLER EMOSI ===
-void HandleBernafas()
+    void HandleBernafas()
 {
     if (timeIsOut) return; // hanya blokir jika waktu habis alami
     currentEmotion = Mathf.Clamp01(currentEmotion + 0.10f);
@@ -336,7 +363,7 @@ void HandleBernafas()
 
 
 
-void HandleIstirahat()
+    void HandleIstirahat()
 {
     if (timeIsOut) return;
     float added = 10f;
@@ -347,7 +374,7 @@ void HandleIstirahat()
     ContinueToNextQuestion();
 }
 
-void HandleLanjut()
+    void HandleLanjut()
 {
     if (timeIsOut) return;
     float added = 10f;
@@ -361,27 +388,27 @@ void HandleLanjut()
 }
 
 
-bool IsCorrectAnswer(int questionIndex, int selectedAnswerIndex)
-{
-    return correctAnswers[questionIndex] == selectedAnswerIndex;
-}
-void CalculateEssayScore()
-{
-    int totalChars = 0;
-
-    foreach (var input in essayInputs)
+    bool IsCorrectAnswer(int questionIndex, int selectedAnswerIndex)
     {
-        totalChars += input.text.Length;
+        return correctAnswers[questionIndex] == selectedAnswerIndex;
     }
+    void CalculateEssayScore()
+    {
+        int totalChars = 0;
 
-    float rawPoints = totalChars * 0.1f;
-    int essayPoints = Mathf.FloorToInt(rawPoints);
+        foreach (var input in essayInputs)
+        {
+            totalChars += input.text.Length;
+        }
 
-    totalScore += essayPoints;
-    Debug.Log($"📝 Total huruf: {totalChars} | Essay Point: {essayPoints}");
+        float rawPoints = totalChars * 0.1f;
+        int essayPoints = Mathf.FloorToInt(rawPoints);
 
-    UpdateScoreUI();
-}
+        totalScore += essayPoints;
+        Debug.Log($"📝 Total huruf: {totalChars} | Essay Point: {essayPoints}");
+
+        UpdateScoreUI();
+    }
 
 
 }

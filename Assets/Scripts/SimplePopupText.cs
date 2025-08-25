@@ -47,9 +47,9 @@ public class SimplePopupText : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator Typewriter(string message)
     {
+        messageText.text = "";
         yield return new WaitForSeconds(fadeDuration);
 
-        messageText.text = "";
         isComplete = false;
 
         for (int i = 0; i < message.Length; i++)

@@ -17,6 +17,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (dialogueUI != null && !dialogueUI.hasFinished)
             {
+                AudioManager.Instance.PlaySFX("beep-2");
                 dialogueStarted = true;
                 dialogueUI.StartDialogue(OnDialogueComplete);
 
