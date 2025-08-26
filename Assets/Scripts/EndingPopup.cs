@@ -49,22 +49,22 @@ public class EndingPopup : MonoBehaviour
         var currentScene = SceneManager.GetActiveScene().name;
         restartBtn.onClick.AddListener(() => OpenScene(currentScene));
 
-        var nextLevelName = currentScene switch
-        {
-            "SekolahLevel1" => "SekolahLevel2",
-            "SekolahLevel2" => "SekolahLevel3",
-            "SekolahLevel3" => "SekolahLevel4",
-            "SekolahLevel4" => "SekolahLevel5",
-            _ => null
-        };
+        //var nextLevelName = currentScene switch
+        //{
+        //    "SekolahLevel1" => "SekolahLevel2",
+        //    "SekolahLevel2" => "SekolahLevel3",
+        //    "SekolahLevel3" => "SekolahLevel4",
+        //    "SekolahLevel4" => "SekolahLevel5",
+        //    _ => null
+        //};
 
-        if(currentScene == "SekolahLevel5")
-        {
-            nextLevelBtn.onClick.AddListener(() => OpenScene("MainMenu"));
-            return;
-        }
+        //if(currentScene == "SekolahLevel5")
+        //{
+        //    nextLevelBtn.onClick.AddListener(() => OpenScene("MainMenu"));
+        //    return;
+        //}
 
-        nextLevelBtn.onClick.AddListener(() => OpenScene(nextLevelName));
+        nextLevelBtn.onClick.AddListener(() => OpenScene("MainMenu"));
     }
 
     private void Update()
@@ -85,6 +85,18 @@ public class EndingPopup : MonoBehaviour
     public void Show(int score, int maxScore)
     {
         ShowEnding($"Skor akhir kamu: {score}/{maxScore}", score, maxScore);
+
+        var level = SceneManager.GetActiveScene().name switch
+        {
+            "SekolahLevel1" => 1,
+            "SekolahLevel2" => 2,
+            "SekolahLevel3" => 3,
+            "SekolahLevel4" => 4,
+            "SekolahLevel5" => 5,
+            _ => 0
+        };
+
+        GameState.Instance.SetScore(level, score, maxScore);
     }
 
     public void ShowEnding(string message, int score, int maxScore)
@@ -98,8 +110,8 @@ public class EndingPopup : MonoBehaviour
             starCount = 3;
 
         // disable next level if not max stars
-        if (nextLevelBtn != null)
-            nextLevelBtn.interactable = (starCount == 3);
+        //if (nextLevelBtn != null)
+        //    nextLevelBtn.interactable = (starCount == 3);
 
         if (_routine != null) StopCoroutine(_routine);
         _routine = StartCoroutine(ShowEndingRoutine(message));

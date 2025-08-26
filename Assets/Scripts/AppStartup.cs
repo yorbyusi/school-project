@@ -8,6 +8,7 @@ public static class AppStartup
     private static void InitBeforeScene()
     {
         SpawnAudioManager();
+        SpawnGameState();
     }
 
     //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -20,7 +21,17 @@ public static class AppStartup
     {
         var prefab = Resources.Load<GameObject>("AudioManager");
         Debug.Log($"AudioManager prefab: {prefab}");
-        if (prefab != null && GameObject.FindObjectOfType<AudioManager>() == null)
+        if (prefab != null)
+        {
+            GameObject.Instantiate(prefab);
+        }
+    }
+
+    private static void SpawnGameState()
+    {
+        var prefab = Resources.Load<GameObject>("GameState");
+        Debug.Log($"GameState prefab: {prefab}");
+        if (prefab != null)
         {
             GameObject.Instantiate(prefab);
         }
