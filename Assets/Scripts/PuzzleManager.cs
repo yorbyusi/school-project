@@ -29,14 +29,17 @@ public class PuzzleManager : MonoBehaviour
     [Header("Popup Settings")]
     public GameObject popupPanel;
     public TextMeshProUGUI popupText;
+    [Multiline(3)]
     public string winMessage = "You Win!";
+    [Multiline(3)]
     public string loseMessage = "Time’s Up!";
 
 
     private float timer;
     private int correctPlaced;
+    private bool isFinished = false;
 
-    public int MaxScore => 30;
+    public int MaxScore => 40;
 
     //private void Start()
     //{
@@ -45,7 +48,7 @@ public class PuzzleManager : MonoBehaviour
 
     private void Update()
     {
-        if (timer > 0)
+        if (timer > 0 && isFinished == false)
         {
             timer -= Time.deltaTime;
             timerText.text = $"Waktu sisa: {Mathf.CeilToInt(timer).ToString()}";
@@ -117,6 +120,7 @@ public class PuzzleManager : MonoBehaviour
 
     void EndPuzzle(bool success)
     {
+        isFinished = true;
         int reward = 0;
         if (success)
         {

@@ -27,7 +27,9 @@ public class SentenceMiniGame : MonoBehaviour
     [Header("Popup Settings")]
     public GameObject popupPanel;
     public TextMeshProUGUI popupText;
+    [Multiline(3)]
     public string winMessage = "You Win!";
+    [Multiline(3)]
     public string loseMessage = "Time’s Up!";
 
     public UnityEvent<bool, int> onMiniGameFinished = new(); // success, reward
@@ -36,7 +38,7 @@ public class SentenceMiniGame : MonoBehaviour
     private VerticalLayoutGroup layoutGroup;
     private bool gameEnded = false;
 
-    public int MaxScore => 20;
+    public int MaxScore => 35;
 
     private void Awake()
     {

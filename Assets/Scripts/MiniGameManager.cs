@@ -17,6 +17,14 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private PuzzleManager puzzleManager;
 
 
+    [Header("Starters")]
+    public SimplePopupText popupText;
+
+    [Multiline(5)]
+    public string firstMessage;
+    [Multiline(5)]
+    public string secondMessage;
+
     [Header("Settings")]
     [SerializeField] private int totalChoices = 3;
     [SerializeField] private int rewardPoints = 10;
@@ -31,6 +39,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
+        StartGame();
         GenerateButtons();
         quizMiniGame.gameObject.SetActive(false);
 
@@ -38,6 +47,30 @@ public class MiniGameManager : MonoBehaviour
         sentenceMiniGame.onMiniGameFinished.AddListener(OnMiniGameFinished);
         puzzleManager.onPuzzleFinished.AddListener(OnMiniGameFinished);
 
+    }
+
+    private void StartGame()
+    {
+        buttonParent.gameObject.SetActive(false);
+        popupText.ShowMessage(firstMessage);
+        popupText.onHide.AddListener(ShowSecondDialog);
+    }
+
+    private void ShowSecondDialog()
+    {
+        popupText.onHide.RemoveListener(ShowSecondDialog);
+
+        popupText.shouldHide = false;
+        popupText.ShowMessage(secondMessage);
+        popupText.onComplete.AddListener(ShowChoiceButtons);
+        //popupText.onHide.AddListener(ShowChoiceButtons);
+    }
+
+    private void ShowChoiceButtons()
+    {
+        popupText.onHide.RemoveListener(ShowChoiceButtons);
+        //popupText.HideMessage();
+        buttonParent.gameObject.SetActive(true);
     }
 
     private void GenerateButtons()
@@ -59,6 +92,7 @@ public class MiniGameManager : MonoBehaviour
 
         activeMiniGameIndex = index;
         buttonParent.gameObject.SetActive(false);
+        popupText.gameObject.SetActive(false);
 
         if (index == 0)
         {
@@ -82,10 +116,12 @@ public class MiniGameManager : MonoBehaviour
     {
         if (activeMiniGameIndex == -1) return;
         buttonParent.gameObject.SetActive(true);
+        popupText.gameObject.SetActive(true);
 
         choiceButtons[activeMiniGameIndex].interactable = false;
         choicesPicked++;
         currentPoints += reward;
+        Debug.Log($"Reward from mini game: {reward} -- {currentPoints}");
 
         if (success)
         {
@@ -106,10 +142,9 @@ public class MiniGameManager : MonoBehaviour
         sentenceMiniGame.gameObject.SetActive(false);
         puzzleManager.gameObject.SetActive(false);
 
-        int maxPoint = quizMiniGame.MaxPoints + sentenceMiniGame.MaxScore + puzzleManager.MaxScore;
         if (choicesPicked >= totalChoices)
         {
-            endingPopup?.Show(currentPoints, maxPoint);
+            endingPopup?.Show(currentPoints, 100);
         }
     }
 
