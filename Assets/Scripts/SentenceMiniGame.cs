@@ -36,6 +36,8 @@ public class SentenceMiniGame : MonoBehaviour
     private VerticalLayoutGroup layoutGroup;
     private bool gameEnded = false;
 
+    public int MaxScore => 20;
+
     private void Awake()
     {
         layoutGroup = sentenceParent.GetComponent<VerticalLayoutGroup>();
@@ -100,12 +102,12 @@ public class SentenceMiniGame : MonoBehaviour
             var item = sentenceParent.GetChild(i).GetComponent<SentenceItem>();
             if (item == null)
             {
-                Debug.Log($" Slot {i} is null (probably placeholder just destroyed)");
+                //Debug.Log($" Slot {i} is null (probably placeholder just destroyed)");
                 correct = false;
                 break;
             }
 
-            Debug.Log($"Slot {i} contains OriginalIndex={item.OriginalIndex}");
+            //Debug.Log($"Slot {i} contains OriginalIndex={item.OriginalIndex}");
 
             if (item.OriginalIndex != i)
             {
@@ -115,12 +117,12 @@ public class SentenceMiniGame : MonoBehaviour
 
         if (correct)
         {
-            Debug.Log(" Correct order achieved!");
+            //Debug.Log(" Correct order achieved!");
             EndGame(true);
         }
         else
         {
-            Debug.Log(" Order not correct yet.");
+            //Debug.Log(" Order not correct yet.");
         }
     }
 
@@ -149,7 +151,7 @@ public class SentenceMiniGame : MonoBehaviour
         popupPanel.SetActive(true);
         popupText.text = success ? winMessage : loseMessage;
 
-        int reward = success ? 50 : 0;
+        int reward = success ? MaxScore : 0;
 
         StartCoroutine(WaitForTap(() =>
         {

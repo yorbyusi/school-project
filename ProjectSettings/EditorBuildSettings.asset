@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: d87986ae15d476e42af886832813c5e4
+  - enabled: 1
     path: Assets/Scenes/SekolahLevel1.unity
     guid: e281333599984ee4896640e1114ec3e1
   - enabled: 1
@@ -14,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SekolahLevel3.unity
     guid: f660af4b758e3da47b7c19fdb65b8904
+  - enabled: 1
+    path: Assets/Scenes/SekolahLevel4.unity
+    guid: f6d72caec864a9e40b1352bba61cd163
+  - enabled: 1
+    path: Assets/Scenes/SekolahLevel5.unity
+    guid: 252a08763f035ea44a65c3ec0d4994de
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

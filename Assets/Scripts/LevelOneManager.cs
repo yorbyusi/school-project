@@ -78,6 +78,10 @@ public class LevelOneManager : MonoBehaviour
     private void SetVisibleButtonChoice(bool isVisible)
     {
         buttonChoice.SetActive(isVisible);
+        if(isVisible)
+            popupText.Show();
+        else
+            popupText.HideMessage();
     }
 
     private void OnButtonClicked(int buttonIndex)
@@ -124,7 +128,13 @@ public class LevelOneManager : MonoBehaviour
     {
         SetVisibleButtonChoice(false);
         popupText.ShowMessage(firstMessage);
-        popupText.onHide.AddListener(ShowSecondDialog);
+        //popupText.onHide.AddListener(ShowSecondDialog);
+        popupText.onComplete.AddListener(OnComplete);
+    }
+
+    private void OnComplete()
+    {
+        SetVisibleButtonChoice(true);
     }
 
     private void ShowSecondDialog()

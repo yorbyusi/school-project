@@ -34,19 +34,27 @@ public class ButtonEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (button != null && !button.interactable)
+            return;
         PlayHoverSound();
         AnimateScale(originalScale * hoverScale);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if(button != null && !button.interactable)
+            return;
         AnimateScale(originalScale);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PlayClickSound();
         AnimateScale(originalScale);
+
+        if (button != null && !button.interactable)
+            return;
+
+        PlayClickSound();
     }
 
     private void AnimateScale(Vector3 targetScale)

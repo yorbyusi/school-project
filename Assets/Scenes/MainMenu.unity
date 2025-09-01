@@ -136,7 +136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_text
-      value: CERITA 5
+      value: Keterampilan Menyatakan Pendapat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 7531949708875532904, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Pivot.x
@@ -336,7 +344,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_text
-      value: CERITA 2
+      value: Keterampilan Manajemen Diri
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 7531949708875532904, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Pivot.x
@@ -1875,7 +1891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pilih Cerita
+  m_text: Pilih Bagian
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00e746f367189b5428b4d4d8a36c27a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 88dfbf9e6e8b1144f87a472b005abe87, type: 2}
@@ -2681,7 +2697,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_text
-      value: CERITA 3
+      value: Keterampilan Berkolaborasi
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 7531949708875532904, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Pivot.x
@@ -2803,7 +2827,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_text
-      value: CERITA 4
+      value: Keterampilan Mematuhi Aturan
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 7531949708875532904, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Pivot.x
@@ -5834,6 +5866,18 @@ PrefabInstance:
     - target: {fileID: 2421420921060410572, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Name
       value: Main Menu Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_text
+      value: Keterampilan Berhubungan dengan Orang Lain
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSize
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364236659947207819, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 7531949708875532904, guid: e978ffc20c5a0c84395f2436026895dd, type: 3}
       propertyPath: m_Pivot.x

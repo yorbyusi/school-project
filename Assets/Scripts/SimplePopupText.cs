@@ -18,16 +18,29 @@ public class SimplePopupText : MonoBehaviour, IPointerClickHandler
 
     public UnityEvent onShow;
     public UnityEvent onHide;
+    public UnityEvent onComplete;
 
     private Coroutine typewriterRoutine;
     private bool isComplete = false;
     private string cacheFullText = "";
+    public bool shouldHide = true;
 
     private void Awake()
     {
         canvas.alpha = 0;
         canvas.interactable = false;
         canvas.blocksRaycasts = false;
+    }
+
+    public void Show()
+    {
+        canvas.DOFade(1f, fadeDuration)
+            .OnComplete(() =>
+            {
+                canvas.interactable = true;
+                canvas.blocksRaycasts = true;
+                onShow?.Invoke();
+            });
     }
 
     public void ShowMessage(string message)
@@ -65,6 +78,7 @@ public class SimplePopupText : MonoBehaviour, IPointerClickHandler
             yield return new WaitForSeconds(typewriterSpeed);
         }
 
+        onComplete?.Invoke();
         isComplete = true;
     }
 
@@ -88,13 +102,15 @@ public class SimplePopupText : MonoBehaviour, IPointerClickHandler
         if (!isComplete)
         {
             // Skip typing, instantly show full text
+            onComplete?.Invoke();
             StopCoroutine(typewriterRoutine);
             messageText.text = cacheFullText;
             isComplete = true;
         }
         else
         {
-            HideMessage();
+            if (shouldHide)
+                HideMessage();
         }
     }
 }

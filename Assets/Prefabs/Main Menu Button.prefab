@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Skor terakhir : 12'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7b242dd8718a6de458d76e5f3066352d, type: 2}
-  m_sharedMaterial: {fileID: -6178366617165010283, guid: 7b242dd8718a6de458d76e5f3066352d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 00e746f367189b5428b4d4d8a36c27a2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 88dfbf9e6e8b1144f87a472b005abe87, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

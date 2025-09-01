@@ -84,6 +84,8 @@ public class EndingPopup : MonoBehaviour
 
     public void Show(int score, int maxScore)
     {
+        // override maxScore to 100
+        maxScore = 100;
         ShowEnding($"Skor akhir kamu: {score}/{maxScore}", score, maxScore);
 
         var level = SceneManager.GetActiveScene().name switch
@@ -99,19 +101,19 @@ public class EndingPopup : MonoBehaviour
         GameState.Instance.SetScore(level, score, maxScore);
     }
 
+    // score is always between 0 and 100
     public void ShowEnding(string message, int score, int maxScore)
     {
-        // calculate stars
-        if (score <= 0)
+        if (score < 50)
             starCount = 1;
-        else if (score < maxScore)
+        else if (score < 60)
             starCount = 2;
-        else
+        else if (score < 70)
             starCount = 3;
-
-        // disable next level if not max stars
-        //if (nextLevelBtn != null)
-        //    nextLevelBtn.interactable = (starCount == 3);
+        else if (score <= 85)
+            starCount = 4;
+        else
+            starCount = 5;
 
         if (_routine != null) StopCoroutine(_routine);
         _routine = StartCoroutine(ShowEndingRoutine(message));

@@ -42,6 +42,8 @@ public class QuizMiniGame : MonoBehaviour
     private int currentPoints = 0;
     private Coroutine quizRoutine;
 
+    public int MaxPoints => quizzes.Length * pointsPerCorrect;
+
     public void StartQuiz()
     {
         if (quizzes == null || quizzes.Length == 0)

@@ -83,12 +83,16 @@ public class MiniGameManager : MonoBehaviour
         if (activeMiniGameIndex == -1) return;
         buttonParent.gameObject.SetActive(true);
 
+        choiceButtons[activeMiniGameIndex].interactable = false;
+        choicesPicked++;
+        currentPoints += reward;
+
         if (success)
         {
-            currentPoints += reward;
+            //currentPoints += reward;
+            //choiceButtons[activeMiniGameIndex].interactable = false;
+            //choicesPicked++;
             Debug.Log($"Mini game success! Total Points = {currentPoints}");
-            choiceButtons[activeMiniGameIndex].interactable = false;
-            choicesPicked++;
         }
         else
         {
@@ -102,9 +106,10 @@ public class MiniGameManager : MonoBehaviour
         sentenceMiniGame.gameObject.SetActive(false);
         puzzleManager.gameObject.SetActive(false);
 
+        int maxPoint = quizMiniGame.MaxPoints + sentenceMiniGame.MaxScore + puzzleManager.MaxScore;
         if (choicesPicked >= totalChoices)
         {
-            endingPopup?.ShowEnding($"Kamu telah menyelesaikan level ini.\nTotal Points: {currentPoints}", currentPoints, 50);
+            endingPopup?.Show(currentPoints, maxPoint);
         }
     }
 

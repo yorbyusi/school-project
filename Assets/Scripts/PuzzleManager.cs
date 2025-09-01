@@ -25,7 +25,6 @@ public class PuzzleManager : MonoBehaviour
     public TMP_Text timerText;
     public float timeLimit = 60f;
     public UnityEvent<bool, int> onPuzzleFinished;
-    public int rewardPoints = 5;
 
     [Header("Popup Settings")]
     public GameObject popupPanel;
@@ -36,6 +35,8 @@ public class PuzzleManager : MonoBehaviour
 
     private float timer;
     private int correctPlaced;
+
+    public int MaxScore => 30;
 
     //private void Start()
     //{
@@ -119,7 +120,7 @@ public class PuzzleManager : MonoBehaviour
         int reward = 0;
         if (success)
         {
-            reward = 50;
+            reward = MaxScore;
         }
         else
         {
@@ -132,12 +133,13 @@ public class PuzzleManager : MonoBehaviour
                 {
                     var piece = slot.transform.GetChild(0).GetComponent<PuzzlePiece>();
                     if (piece != null && piece.pieceIndex == slot.slotIndex)
-                        correct += 10;
+                        correct += (MaxScore / pieces.Length);
                 }
             }
+
             reward = correct;
             // fail if reward < 10 * pieces.Length
-            success = (reward >= pieces.Length * 10);
+            //success = (reward >= pieces.Length * 10);
         }
 
         popupPanel.SetActive(true);
