@@ -32,6 +32,12 @@ public class ButtonEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             button.onClick.AddListener(PlayClickSound);
     }
 
+    private void OnDisable()
+    {
+        if (scaleTween != null && scaleTween.IsActive())
+            scaleTween.Kill();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (button != null && !button.interactable)
