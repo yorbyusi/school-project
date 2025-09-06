@@ -338,9 +338,9 @@ RectTransform:
   - {fileID: 2088144565093320617}
   m_Father: {fileID: 7964805411462543849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 182, y: -145}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 182, y: 123}
   m_SizeDelta: {x: 326.6753, y: 94.2876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7970696530642857560
@@ -535,9 +535,9 @@ RectTransform:
   - {fileID: 8224494432715029909}
   m_Father: {fileID: 7964805411462543849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 304}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -240.92758}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2841928591665428910
@@ -699,9 +699,9 @@ RectTransform:
   - {fileID: 780307296771882925}
   m_Father: {fileID: 7964805411462543849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -197, y: -145}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -197, y: 122.99997}
   m_SizeDelta: {x: 326.6753, y: 94.2876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &655342144482868233
@@ -1472,7 +1472,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8488754603217643231}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1583,9 +1583,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7964805411462543849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 101}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -443.92755}
   m_SizeDelta: {x: 820, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7436291278689349151
