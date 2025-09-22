@@ -10,7 +10,7 @@ public class GameState : MonoBehaviour
     private string MaxScoreKey(int level) => $"SekolahLevel{level}_Max";
 
     public int GetScore(int level) => PlayerPrefs.GetInt(ScoreKey(level), 0);
-    public int GetMaxScore(int level) => PlayerPrefs.GetInt(MaxScoreKey(level), 0);
+    public int GetMaxScore(int level) => PlayerPrefs.GetInt(MaxScoreKey(level), 100);
 
     public void SetScore(int level, int latestScore, int maxScore)
     {

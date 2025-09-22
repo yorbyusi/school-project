@@ -23,6 +23,7 @@ public class DialogueUI : MonoBehaviour
     public string[] options = new string[4];
     public string[] answers = new string[4];
     public string[] expressions = new string[4];
+    public string[] emoji = new string[4];
     public int[] points = new int[4];
 
     public BlendShapeController faceController;
@@ -75,6 +76,10 @@ public class DialogueUI : MonoBehaviour
         string response = answers[index];
         string expression = expressions[index];
         AudioManager.Instance.PlaySFX(expression);
+
+        var emojiSpawner = FindObjectOfType<EmojiSpawner>();
+        if (emojiSpawner != null && !string.IsNullOrEmpty(emoji[index]))
+            emojiSpawner.SpawnEmoji(emoji[index]);
 
         dialogueText.text = response;
 

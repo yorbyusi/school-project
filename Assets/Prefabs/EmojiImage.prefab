@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2524081027127041102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4035613097233535778}
+  - component: {fileID: 5747666739212997968}
+  - component: {fileID: 8413431835291596012}
+  - component: {fileID: 8970831233719489096}
+  m_Layer: 5
+  m_Name: EmojiImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4035613097233535778
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524081027127041102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -80, y: 60}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5747666739212997968
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524081027127041102}
+  m_CullTransparentMesh: 1
+--- !u!114 &8413431835291596012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524081027127041102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -740222290, guid: 671911103c460d245b27ebbb618e18cc, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8970831233719489096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524081027127041102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10d422b52559da41aa9676770a8fc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSteps:
+  - rid: 2520641912062607370
+  - rid: 2520641912062607372
+  - rid: 2520641912062607374
+  - rid: 2520641912062607376
+  - rid: 2520641912062607382
+  - rid: 2520641912062607384
+  updateType: 0
+  autoplayMode: 2
+  playType: 0
+  loopType: 0
+  timeScaleIndependent: 0
+  startPaused: 0
+  autoKill: 1
+  playbackSpeed: 1
+  loops: 0
+  onStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinishedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onProgressEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  progress: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2520641912062607370
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 2524081027127041102}
+        duration: 0
+        actions:
+        - rid: 2520641912062607371
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607371
+      type: {class: GraphicAlpha, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        alpha: 0
+    - rid: 2520641912062607372
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 2524081027127041102}
+        duration: 1
+        actions:
+        - rid: 2520641912062607373
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607373
+      type: {class: GraphicAlpha, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        alpha: 1
+    - rid: 2520641912062607374
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 1
+        target: {fileID: 2524081027127041102}
+        duration: 0.8
+        actions:
+        - rid: 2520641912062607375
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607375
+      type: {class: AnchorPositionToPosition, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 1
+        axisConstraint: 0
+        position: {x: 0, y: 100}
+    - rid: 2520641912062607376
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 2524081027127041102}
+        duration: 1.8
+        actions:
+        - rid: 2520641912062607379
+        - rid: 2520641912062607381
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607379
+      type: {class: PunchRotation, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 1
+        punchMagnitude: {x: 0, y: 0, z: 12}
+        vibrato: 2
+        elasticity: 1
+    - rid: 2520641912062607381
+      type: {class: ShakeScale, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 1
+        strength: {x: 0.1, y: 0.1, z: 0}
+        vibrato: 5
+        randomness: 25
+        fadeout: 1
+    - rid: 2520641912062607382
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 2524081027127041102}
+        duration: 0.3
+        actions:
+        - rid: 2520641912062607383
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607383
+      type: {class: GraphicAlpha, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        alpha: 0
+    - rid: 2520641912062607384
+      type: {class: TweenStep, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 2524081027127041102}
+        duration: 0
+        actions:
+        - rid: 2520641912062607386
+        loopCount: 0
+        loopType: 0
+    - rid: 2520641912062607386
+      type: {class: AnchorPositionToPosition, ns: BrunoMikoski.AnimationsSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 1
+        axisConstraint: 0
+        position: {x: 0, y: -100}

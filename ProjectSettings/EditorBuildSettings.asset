@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SekolahLevel5.unity
     guid: 252a08763f035ea44a65c3ec0d4994de
+  - enabled: 1
+    path: Assets/Scenes/Testing.unity
+    guid: dfa6a56d509e8234d83c9c3be9bb58fc
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

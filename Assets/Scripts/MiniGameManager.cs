@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -24,6 +25,16 @@ public class MiniGameManager : MonoBehaviour
     public string firstMessage;
     [Multiline(5)]
     public string secondMessage;
+    public GameObject yesNoPanel;
+    public Button yesBtn;
+    public Button noBtn;
+
+    [Multiline(5)]
+    public string thirdMessage;
+    [Multiline(5)]
+    public string fourthMessage;
+    [Multiline(5)]
+    public string fifthMessage;
 
     [Header("Settings")]
     [SerializeField] private int totalChoices = 3;
@@ -62,8 +73,53 @@ public class MiniGameManager : MonoBehaviour
 
         popupText.shouldHide = false;
         popupText.ShowMessage(secondMessage);
-        popupText.onComplete.AddListener(ShowChoiceButtons);
+        popupText.onComplete.AddListener(ShowSecondOption);
+        //popupText.onComplete.AddListener(ShowChoiceButtons);
         //popupText.onHide.AddListener(ShowChoiceButtons);
+    }
+
+    private void ShowSecondOption()
+    {
+        popupText.onComplete.RemoveListener(ShowSecondOption);
+
+        popupText.shouldHide = true;
+        yesNoPanel.gameObject.SetActive(true);
+        yesBtn.onClick.AddListener(ShowThirdDialog);
+        noBtn.onClick.AddListener(LoadToMenu);
+
+        void LoadToMenu()
+        {
+            AudioManager.Instance.StopBGM();
+            AudioManager.Instance.StopAmbience();
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    private void ShowThirdDialog()
+    {
+        yesNoPanel.gameObject.SetActive(false);
+
+        popupText.onHide.RemoveListener(ShowThirdDialog);
+
+        popupText.ShowMessage(thirdMessage);
+        popupText.onHide.AddListener(ShowFourthDialog);
+    }
+
+    private void ShowFourthDialog()
+    {
+        popupText.onHide.RemoveListener(ShowFourthDialog);
+
+        popupText.ShowMessage(fourthMessage);
+        popupText.onHide.AddListener(ShowFifthDialog);
+    }
+
+    private void ShowFifthDialog()
+    {
+        popupText.onHide.RemoveListener(ShowFifthDialog);
+
+        popupText.shouldHide = false;
+        popupText.ShowMessage(fifthMessage);
+        popupText.onComplete.AddListener(ShowChoiceButtons);
     }
 
     private void ShowChoiceButtons()

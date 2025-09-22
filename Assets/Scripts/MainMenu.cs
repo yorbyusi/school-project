@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
     public Button level5Btn;
     public MainMenuButton[] buttons;
 
+    public Button quitButton;
+
     private void Start()
     {
         string prefix = "SekolahLevel";
@@ -25,6 +27,8 @@ public class MainMenu : MonoBehaviour
             btn.SetLastScore(score, maxScore);
             level++;
         }
+
+        quitButton.onClick.AddListener(() => Application.Quit());
 
     }
 
