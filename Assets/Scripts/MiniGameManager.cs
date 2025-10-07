@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -36,6 +37,9 @@ public class MiniGameManager : MonoBehaviour
     [Multiline(5)]
     public string fifthMessage;
 
+    [Header("Visuals")]
+    public GameObject[] characters;
+
     [Header("Settings")]
     [SerializeField] private int totalChoices = 3;
     [SerializeField] private int rewardPoints = 10;
@@ -67,6 +71,30 @@ public class MiniGameManager : MonoBehaviour
         popupText.onHide.AddListener(ShowSecondDialog);
     }
 
+    public void SetVisibleCharacters(bool visible)
+    {
+        if(visible)
+        {
+            StartCoroutine(ShowCharactersRoutine());
+        }
+        else
+        {
+            foreach (var character in characters)
+            {
+                character.SetActive(visible);
+            }
+        }
+    }
+
+    private IEnumerator ShowCharactersRoutine()
+    {
+        foreach (var character in characters)
+        {
+            character.SetActive(true);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
     private void ShowSecondDialog()
     {
         popupText.onHide.RemoveListener(ShowSecondDialog);
@@ -80,9 +108,9 @@ public class MiniGameManager : MonoBehaviour
 
     private void ShowSecondOption()
     {
+        SetVisibleCharacters(true);
         popupText.onComplete.RemoveListener(ShowSecondOption);
 
-        popupText.shouldHide = true;
         yesNoPanel.gameObject.SetActive(true);
         yesBtn.onClick.AddListener(ShowThirdDialog);
         noBtn.onClick.AddListener(LoadToMenu);
@@ -97,6 +125,8 @@ public class MiniGameManager : MonoBehaviour
 
     private void ShowThirdDialog()
     {
+        popupText.shouldHide = true;
+        SetVisibleCharacters(false);
         yesNoPanel.gameObject.SetActive(false);
 
         popupText.onHide.RemoveListener(ShowThirdDialog);
@@ -124,7 +154,11 @@ public class MiniGameManager : MonoBehaviour
 
     private void ShowChoiceButtons()
     {
+        SetVisibleCharacters(true);
         popupText.onHide.RemoveListener(ShowChoiceButtons);
+
+        popupText.canvas.interactable = false;
+        popupText.canvas.blocksRaycasts = false;
         //popupText.HideMessage();
         buttonParent.gameObject.SetActive(true);
     }
@@ -149,6 +183,8 @@ public class MiniGameManager : MonoBehaviour
         activeMiniGameIndex = index;
         buttonParent.gameObject.SetActive(false);
         popupText.gameObject.SetActive(false);
+
+        SetVisibleCharacters(false);
 
         if (index == 0)
         {
@@ -178,6 +214,8 @@ public class MiniGameManager : MonoBehaviour
         choicesPicked++;
         currentPoints += reward;
         Debug.Log($"Reward from mini game: {reward} -- {currentPoints}");
+
+        SetVisibleCharacters(true);
 
         if (success)
         {

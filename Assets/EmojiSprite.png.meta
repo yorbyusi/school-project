@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EmojiSprite_0
+      name: emoji_smile
       rect:
         serializedVersion: 2
         x: 0
@@ -245,7 +245,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 257
         width: 128
         height: 128
       alignment: 0
@@ -482,7 +482,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EmojiSprite_0: -740222290
       EmojiSprite_1: 1928631422
       EmojiSprite_11: -861649973
       EmojiSprite_12: -1273934328
@@ -498,6 +497,7 @@ TextureImporter:
       emoji_fail: -575114797
       emoji_laugh: 437632656
       emoji_sad: -650462489
+      emoji_smile: -740222290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

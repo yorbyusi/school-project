@@ -67,6 +67,8 @@ MonoBehaviour:
     emojiSprite: {fileID: -575114797, guid: 671911103c460d245b27ebbb618e18cc, type: 3}
   - emojiName: emoji_sad
     emojiSprite: {fileID: -650462489, guid: 671911103c460d245b27ebbb618e18cc, type: 3}
+  - emojiName: emoji_smile
+    emojiSprite: {fileID: -740222290, guid: 671911103c460d245b27ebbb618e18cc, type: 3}
   emojiImage:
   - {fileID: 7300078010934043972}
   - {fileID: 1091384884828949889}

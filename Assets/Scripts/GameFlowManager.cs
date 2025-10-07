@@ -52,6 +52,13 @@ public class GameFlowManager : MonoBehaviour
     public int maxScore;
     public TMP_Text scoreText;
 
+    public GameObject resultPanel;
+    public TMP_Text resultText;
+    public TMP_Text resultScoreText;
+
+    public string correctMsg = "Jawaban Anda benar!";
+    public string wrongMsg = "Jawaban Anda salah.";
+
     [Header("Emosi System")]
     public Image emotionBar;
     private float currentEmotion = 1f;
@@ -78,6 +85,8 @@ public class GameFlowManager : MonoBehaviour
 
     [Header("Kunci Jawaban")]
     public int[] correctAnswers = new int[4]; // index 0–3 = soal 1–4
+
+    private bool isLastQuestionCorrect = false;
 
     void Awake()
     {
@@ -112,6 +121,7 @@ public class GameFlowManager : MonoBehaviour
                 multipleChoiceButtons[i][j].onClick.AddListener(() =>
                 {
                     bool isCorrect = IsCorrectAnswer(capturedI, capturedJ);
+                    isLastQuestionCorrect = isCorrect;
 
                     if (isCorrect)
                     {
@@ -346,7 +356,16 @@ public class GameFlowManager : MonoBehaviour
         if (currentQuestion < questionPanels.Length)
             questionPanels[currentQuestion].SetActive(false);
 
-        yield return new WaitForSeconds(0.5f); // tunggu 1 detik
+        // tapilkan result panel
+        resultText.text = isLastQuestionCorrect ? correctMsg : wrongMsg;
+        resultScoreText.text = isLastQuestionCorrect ? "+15 poin" : "+0 poin";
+        resultPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f); // tunggu sejenak
+
+        resultPanel.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f); // jeda kecil sebelum soal berikutnya
 
         timeIsOut = false;
         timerRunning = true;

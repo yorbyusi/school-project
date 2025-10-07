@@ -28,6 +28,7 @@ public class QuizMiniGame : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private CanvasGroup quizCanvas;
     [SerializeField] private TextMeshProUGUI questionText;
+    [SerializeField] private Transform questionParent;
     [SerializeField] private Transform answersParent; // must have GridLayoutGroup
     [SerializeField] private Button answerPrefab;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -45,6 +46,14 @@ public class QuizMiniGame : MonoBehaviour
     [Multiline(3)]
     public string doneMessage = "You Win!";
 
+    [Header("Result Panel")]
+    public GameObject resultPanel;
+    public TMP_Text resultText;
+    public TMP_Text resultScoreText;
+    public string correctMsg = "Jawaban Anda benar!";
+    public string wrongMsg = "Jawaban Anda salah.";
+
+    private bool isLastQuestionCorrect = false;
 
     // success always true now (game ends after last Q), int = total points earned
     public UnityEvent<bool, int> onQuizFinished = new();
@@ -156,6 +165,7 @@ public class QuizMiniGame : MonoBehaviour
     {
         var quiz = quizzes[currentQuizIndex];
         bool correct = index == quiz.correctIndex;
+        isLastQuestionCorrect = correct;
 
         if (quizRoutine != null)
             StopCoroutine(quizRoutine);
@@ -171,7 +181,19 @@ public class QuizMiniGame : MonoBehaviour
 
     private IEnumerator DelayShowQuiz()
     {
-        yield return new WaitForSeconds(0.3f);
+        answersParent.gameObject.SetActive(false); // disable further input
+        // tapilkan result panel
+        resultText.text = isLastQuestionCorrect ? correctMsg : wrongMsg;
+        resultScoreText.text = isLastQuestionCorrect ? $"+{pointsPerCorrect} poin" : "+0 poin";
+        resultPanel.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f); // tunggu sejenak
+
+        resultPanel.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        answersParent.gameObject.SetActive(true); // enable input again
         currentQuizIndex++;
         if (currentQuizIndex < quizzes.Length)
         {
@@ -212,6 +234,9 @@ public class QuizMiniGame : MonoBehaviour
 
         bool success = true;
         int reward = success ? currentPoints : 0;
+
+        questionParent.gameObject.SetActive(false);
+        answersParent.gameObject.SetActive(false);
 
         popupPanel.SetActive(true);
         var endScoreText = $"\n<color=#FFEE40> Kamu mendapatkan {currentPoints} poin!</color>";
