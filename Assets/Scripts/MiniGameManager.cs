@@ -18,6 +18,11 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private SentenceMiniGame sentenceMiniGame;
     [SerializeField] private PuzzleManager puzzleManager;
 
+    [Multiline(3)]
+    [SerializeField] private string[] questionQuizzes;
+    [SerializeField] private EmojiSpawner emojiSpawner;
+
+    private int currentQuizIndex = 0;
 
     [Header("Starters")]
     public SimplePopupText popupText;
@@ -175,10 +180,22 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
+    private void SetTextBasedOnQuizIndex(int index)
+    {
+        popupText.ShowMessage(questionQuizzes[index]);
+    }
+
     private void OnChoiceSelected(int index)
     {
         if (!choiceButtons[index].interactable)
             return;
+
+        if(index > currentQuizIndex)
+        {
+            emojiSpawner.SpawnEmoji("emoji_sad");
+            AudioManager.Instance.PlaySFX("Sad");
+            return;
+        }
 
         activeMiniGameIndex = index;
         buttonParent.gameObject.SetActive(false);
@@ -206,11 +223,18 @@ public class MiniGameManager : MonoBehaviour
 
     private void OnMiniGameFinished(bool success, int reward)
     {
+        Debug.Log($"Mini game finished. Success: {success}, Reward: {reward}");
         if (activeMiniGameIndex == -1) return;
+
         buttonParent.gameObject.SetActive(true);
         popupText.gameObject.SetActive(true);
 
-        choiceButtons[activeMiniGameIndex].interactable = false;
+        currentQuizIndex++;
+
+        // index 1 can be repeated until success
+        if (activeMiniGameIndex != 1 || success)
+            choiceButtons[activeMiniGameIndex].interactable = false;
+
         choicesPicked++;
         currentPoints += reward;
         Debug.Log($"Reward from mini game: {reward} -- {currentPoints}");
@@ -219,6 +243,8 @@ public class MiniGameManager : MonoBehaviour
 
         if (success)
         {
+            if (currentQuizIndex < questionQuizzes.Length)
+                SetTextBasedOnQuizIndex(currentQuizIndex);
             //currentPoints += reward;
             //choiceButtons[activeMiniGameIndex].interactable = false;
             //choicesPicked++;

@@ -108,7 +108,7 @@ public class QuizMiniGame : MonoBehaviour
             introText.text += message[i];
 
             // phonetic effect every 2 chars
-            if (i % 2 == 0 && !char.IsWhiteSpace(message[i]))
+            if (i % 5 == 0 && !char.IsWhiteSpace(message[i]))
                 AudioManager.Instance?.PlaySFX("beep-1", 0.9f, 1.2f);
 
             yield return new WaitForSeconds(typewriterSpeed);

@@ -158,14 +158,14 @@ public class GameFlowManager : MonoBehaviour
 
     private IEnumerator Typewriter(string message)
     {
-        //startAfterRead.interactable = false;
+        startAfterRead.interactable = false;
         readText.text = "";
 
         for (int i = 0; i < message.Length; i++)
         {
             readText.text += message[i];
 
-            var playSfxThreshold = 2;
+            var playSfxThreshold = 5;
             if (i % playSfxThreshold == 0 && !char.IsWhiteSpace(message[i]))
             {
                 AudioManager.Instance?.PlaySFX("beep-1", 0.9f, 1.2f);

@@ -13,6 +13,12 @@ public class EmojiSpawner : MonoBehaviour
 
     public void SpawnEmoji(string name)
     {
+        // stop all before playing new
+        foreach (var seq in showSequence)
+        {
+            seq.Kill(true);
+        }
+
         Debug.Log("Trying to spawn emoji: " + name);
         for (int i = 0; i < emoji.Length; i++)
         {

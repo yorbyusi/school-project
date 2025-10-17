@@ -57,13 +57,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9194e0c800435f140b6236ad18f89d6b, type: 3}
   - {fileID: 8300000, guid: fdf900f8452ab9e4ba1d3a9e8f8f67eb, type: 3}
   - {fileID: 8300000, guid: 3d65b6e9cbca6284ea7bebde49e04dc5, type: 3}
-  - {fileID: 8300000, guid: 500089be658a54544ab6d3d2e54e7ee1, type: 3}
+  - {fileID: 8300000, guid: 7a2041ac8a8f5544ca3ec07a08104271, type: 3}
   - {fileID: 8300000, guid: 7e40d5b39910d1a4ba2ce10a3d1a1896, type: 3}
   - {fileID: 8300000, guid: 26b96139d95b1cd4fa1e99e5cf3cee33, type: 3}
   - {fileID: 8300000, guid: 09e367cde993c8b4ba7ec434d2cf408b, type: 3}
   - {fileID: 8300000, guid: 7a0aae39b5d515347a1f7f72aaa025bc, type: 3}
   - {fileID: 8300000, guid: 6459782867bafeb45ad67297c3b61b59, type: 3}
   - {fileID: 8300000, guid: 267e8535e5d9c204a9376c7fb8db3f03, type: 3}
+  - {fileID: 8300000, guid: 500089be658a54544ab6d3d2e54e7ee1, type: 3}
   fadeDuration: 1
 --- !u!1 &3420579337879386797
 GameObject:

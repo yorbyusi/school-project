@@ -54,6 +54,7 @@ public class SentenceMiniGame : MonoBehaviour
     public void StartGame()
     {
         ClearOld();
+        gameEnded = false;
         if (sentences == null || sentences.Count == 0)
         {
             Debug.LogWarning("[SentenceMiniGame] No sentences set.");
