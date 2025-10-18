@@ -146,18 +146,23 @@ public class PuzzleManager : MonoBehaviour
             //success = (reward >= pieces.Length * 10);
         }
 
-        popupPanel.SetActive(true);
-        popupText.text = success ? winMessage : loseMessage;
+        var sfx = success ? "Smile" : "Sad";
+        AudioManager.Instance.PlaySFX(sfx);
 
         StartCoroutine(WaitForTap(() =>
         {
             popupPanel.SetActive(false);
             onPuzzleFinished.Invoke(success, reward);
-        }));
+        }, success));
     }
 
-    private IEnumerator WaitForTap(System.Action onClose)
+    private IEnumerator WaitForTap(System.Action onClose, bool isSuccess)
     {
+        yield return new WaitForSeconds(3.5f);
+
+        popupText.text = isSuccess ? winMessage : loseMessage;
+        popupPanel.SetActive(true);
+
         while (!Input.GetMouseButtonDown(0) && Input.touchCount == 0)
             yield return null;
         onClose?.Invoke();

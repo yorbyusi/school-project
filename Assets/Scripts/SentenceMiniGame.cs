@@ -151,21 +151,26 @@ public class SentenceMiniGame : MonoBehaviour
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
 
-        popupPanel.SetActive(true);
-        popupText.text = success ? winMessage : loseMessage;
-
         int reward = success ? MaxScore : 0;
+
+        var sfx = success ? "Smile" : "Sad";
+        AudioManager.Instance.PlaySFX(sfx);
 
         StartCoroutine(WaitForTap(() =>
         {
             popupPanel.SetActive(false);
             onMiniGameFinished?.Invoke(success, reward);
-        }));
+        }, success));
     }
 
 
-    private IEnumerator WaitForTap(System.Action onClose)
+    private IEnumerator WaitForTap(System.Action onClose, bool isSuccess)
     {
+        yield return new WaitForSeconds(3.5f);
+
+        popupText.text = isSuccess ? winMessage : loseMessage;
+        popupPanel.SetActive(true);
+
         bool tapped = false;
         while (!tapped)
         {

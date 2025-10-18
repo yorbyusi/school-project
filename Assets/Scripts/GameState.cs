@@ -14,8 +14,8 @@ public class GameState : MonoBehaviour
 
     public void SetScore(int level, int latestScore, int maxScore)
     {
+        Debug.Log($"[GameState] Setting score for level {level}: {latestScore}/{maxScore}");
         int currentMax = GetScore(level);
-        if (latestScore > currentMax)
         PlayerPrefs.SetInt(ScoreKey(level), latestScore);
         PlayerPrefs.SetInt(MaxScoreKey(level), maxScore);
         PlayerPrefs.Save();

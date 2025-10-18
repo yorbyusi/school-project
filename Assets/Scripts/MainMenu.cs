@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
             btn.button.onClick.AddListener(() => OpenScene(prefix + cacheLevel));
             int score = GameState.Instance.GetScore(cacheLevel);
             int maxScore = GameState.Instance.GetMaxScore(cacheLevel);
+
+            Debug.Log($"[MainMenu] Level {cacheLevel} score: {score}/{maxScore}");
+
             btn.SetLastScore(score, maxScore);
             level++;
         }
